@@ -1,6 +1,0 @@
-@OrderSaga_HostAddress = http://localhost:5076
-
-GET {{OrderSaga_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

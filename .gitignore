@@ -87,4 +87,6 @@ obj/
 
 .vscode
 
+appsettings.Development.json
+appsettings.json
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Rider,DotnetCore,vscode,macos
