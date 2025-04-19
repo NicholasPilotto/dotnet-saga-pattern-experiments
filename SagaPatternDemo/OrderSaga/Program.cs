@@ -7,12 +7,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddDbContext<NpgsqlDbContext>();
 
-var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
 
 builder.Services.AddMassTransit(conf =>
 {
@@ -22,13 +17,20 @@ builder.Services.AddMassTransit(conf =>
     {
         cfg.Host("rabbitmq", "/", h =>
         {
-            h.Username("guest");
-            h.Password("guest");
+            h.Username("admin");
+            h.Password("admin");
         });
 
         cfg.ConfigureEndpoints(context);
     });
 });
+
+var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+}
 
 app.UseHttpsRedirection();
 
