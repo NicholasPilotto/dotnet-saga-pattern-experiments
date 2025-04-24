@@ -4,8 +4,8 @@ using SagaOrchestrator.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// builder.Services.AddDbContext<NpgsqlDbContext>(options =>
-//     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
+builder.Services.AddDbContext<NpgsqlDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
 builder.Services.AddMassTransit(busConfigurator =>
 {
@@ -26,6 +26,9 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<NpgsqlDbContext>();
+    context.Database.Migrate();
 }
 
 app.UseHttpsRedirection();
