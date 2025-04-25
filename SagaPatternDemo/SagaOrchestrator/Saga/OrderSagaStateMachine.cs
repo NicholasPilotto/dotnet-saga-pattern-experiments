@@ -1,5 +1,4 @@
 using MassTransit;
-using MassTransit.NewIdProviders;
 using SagaOrchestrator.Commands;
 using SagaOrchestrator.Events;
 using SagaOrchestrator.Persistence.Models;
@@ -8,13 +7,13 @@ namespace SagaOrchestrator.Saga;
 
 public class OrderSagaStateMachine : MassTransitStateMachine<OrderSagaModel>
 {
-  public State Ordering { get; set; }
-  public State Paying { get; set; }
-  public State Shipping { get; set; }
+  public State? Ordering { get; set; }
+  public State? Paying { get; set; }
+  public State? Shipping { get; set; }
 
-  public Event<OrderCreated> OrderCreated { get; set; }
-  public Event<OrderPayed> OrderPayed { get; set; }
-  public Event<OrderShipped> OrderShipped { get; set; }
+  public Event<OrderCreated>? OrderCreated { get; set; }
+  public Event<OrderPayed>? OrderPayed { get; set; }
+  public Event<OrderShipped>? OrderShipped { get; set; }
 
   public OrderSagaStateMachine()
   {
