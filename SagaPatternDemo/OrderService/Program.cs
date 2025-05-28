@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrderService.Commands;
 using OrderService.Entities;
+using OrderService.Infrastructure.Dtos;
 using OrderService.Persistence;
 using Scalar.AspNetCore;
 
@@ -55,9 +56,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapPost("/order", async ([FromBody] Order payload, IBus bus) =>
+app.MapPost("/order", async ([FromBody] OrderCreationDto payload, IBus bus) =>
 {
-    await bus.Publish(new OrderCreated(payload.Id, payload.Price));
+    await bus.Publish(new OrderCreated(Guid.NewGuid(), payload.Price));
 
     return Results.Accepted;
 });
